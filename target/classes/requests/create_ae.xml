@@ -1,0 +1,5 @@
+<m2m:ae xmlns:m2m="http://www.onem2m.org/xml/protocols" rn="TEMPERATURE">
+    <api>app-temp</api>
+    <lbl>Type/sensor Category/temperature Location/room1</lbl>
+    <rr>false</rr>
+</m2m:ae>
