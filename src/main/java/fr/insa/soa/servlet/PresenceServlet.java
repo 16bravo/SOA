@@ -38,11 +38,13 @@ public class PresenceServlet extends HttpServlet {
 			p = "false";
 		} else {
 			p = "true";
-		};
+		}
+		;
+		System.out.println(p);
 
 		Client client = new Client();
-		String url = "http://localhost:8080/~/mn-cse/cnt-753274362"; // DATA_container_for_presence
-		String type = "4";
+		String url = "http://localhost:8080/~/mn-cse/mn-name/PRESENCE/DATA"; // DATA_container_for_presence
+		String type = "4"; // cin
 		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 				+ "<cnf>application/xml</cnf>" + "<con>" + p + "</con>" + "</m2m:cin>";
 		System.out.println(client.create(url, representation, "admin:admin", type));

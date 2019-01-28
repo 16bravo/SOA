@@ -52,21 +52,23 @@ public class HeaterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				String h = request.getParameter("heater");
-				if (h.equals("true")) {
-					h = "false";
-				} else {
-					h = "true";
-				};
+		String h = request.getParameter("heater");
+		if (h.equals("true")) {
+			h = "false";
+		} else {
+			h = "true";
+		}
+		;
+		System.out.println(h);
 
-				Client client = new Client();
-				String url = "http://localhost:8080/~/mn-cse/cnt-671515391"; // DATA_container_for_heater
-				String type = "4"; // cin
-				String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
-						+ "<cnf>application/xml</cnf>" + "<con>" + h + "</con>" + "</m2m:cin>";
-				System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_door_state
+		Client client = new Client();
+		String url = "http://localhost:8080/~/mn-cse/mn-name/HEATER_STATE/DATA"; // DATA_container_for_lights
+		String type = "4"; // cin
+		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
+				+ "<cnf>application/xml</cnf>" + "<con>" + h + "</con>" + "</m2m:cin>";
+		System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_light_state
 
-				request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
 	}
 
 }

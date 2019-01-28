@@ -58,7 +58,7 @@ public class LightServlet extends HttpServlet {
 		System.out.println(light);
 
 		Client client = new Client();
-		String url = "http://localhost:8080/~/mn-cse/cnt-328372442"; // DATA_container_for_lights
+		String url = "http://localhost:8080/~/mn-cse/mn-name/LUMIERE/DATA"; // DATA_container_for_lights
 		String type = "4"; // cin
 		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 				+ "<cnf>application/xml</cnf>" + "<con>" + light + "</con>" + "</m2m:cin>";

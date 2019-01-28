@@ -47,24 +47,24 @@ public class DoorServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Recuperation form et modification LUMIERES
-		String door = request.getParameter("door");
-		if (door.equals("true")) {
-			door = "false";
-		} else {
-			door = "true";
-		}
-		;
-		System.out.println(door);
+		// Recuperation form et modification PORTES
+				String door = request.getParameter("door");
+				if (door.equals("true")) {
+					door = "false";
+				} else {
+					door = "true";
+				}
+				;
+				System.out.println(door);
 
-		Client client = new Client();
-		String url = "http://localhost:8080/~/mn-cse/DOOR_POSITION/DATA"; // DATA_container_for_door
-		String type = "4"; // cin
-		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
-				+ "<cnf>application/xml</cnf>" + "<con>" + door + "</con>" + "</m2m:cin>";
-		System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_door_state
+				Client client = new Client();
+				String url = "http://localhost:8080/~/mn-cse/mn-name/DOOR_POSITION/DATA"; // DATA_container_for_lights
+				String type = "4"; // cin
+				String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
+						+ "<cnf>application/xml</cnf>" + "<con>" + door + "</con>" + "</m2m:cin>";
+				System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_light_state
 
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+				request.getRequestDispatcher("TemperatureServlet").forward(request, response);
 	}
 
 }

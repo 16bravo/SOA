@@ -145,7 +145,7 @@ public class TemperatureServlet extends HttpServlet {
 			
 			//DISPLAY TIME
 			Date date = new Date();
-		    String strDateFormat = "hh:mm";
+		    String strDateFormat = "HH:mm";
 		    DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
 		    String fd= dateFormat.format(date);
 			request.setAttribute("time", fd);
@@ -163,18 +163,23 @@ public class TemperatureServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/*//Recuperation form et modification LUMIERES
-		String light = request.getParameter("light");
-		if(light.equals("true")){light="false";}else{light="true";};
-		System.out.println(light);
-		*/
+		String t = request.getParameter("temperature");
+		String ot = request.getParameter("otemp");
 		Client client = new Client();
-		String url = "http://localhost:8080/~/mn-cse/cnt-648051517"; //DATA container for lights
+		String url = "http://localhost:8080/~/mn-cse/mn-name/TEMPERATURE/DATA";
 		String type="4"; //cin
 		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 				+"<cnf>application/xml</cnf>"
-				+"<con>"+((double)Math.round((20+Math.random()*5)*10)/10)+"</con>"
+				+"<con>"+t+"</con>"
 				+"</m2m:cin>";
-		System.out.println(client.create(url, representation, "admin:admin", type)); //new value for light state
+		System.out.println(client.create(url, representation, "admin:admin", type)); //new value
+		
+		url = "http://localhost:8080/~/mn-cse/mn-name/TEMPERATURE_EXT/DATA";
+		representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
+				+"<cnf>application/xml</cnf>"
+				+"<con>"+ot+"</con>"
+				+"</m2m:cin>";
+		System.out.println(client.create(url, representation, "admin:admin", type)); //new value
 		
 		//this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);*/
 				

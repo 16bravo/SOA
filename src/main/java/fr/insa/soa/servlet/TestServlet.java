@@ -1,6 +1,8 @@
 package fr.insa.soa.servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -81,14 +83,14 @@ public class TestServlet extends HttpServlet {
 		
 		//GESTION DU CHAUFFAGE
 		Client c = new Client();
-		String url = "http://localhost:8080/~/mn-cse/HEATER_STATE/DATA"; // DATA_container_for_heater
+		String url = "http://localhost:8080/~/mn-cse/mn-name/HEATER_STATE/DATA"; // DATA_container_for_heater
 		String type = "4"; // cin
-		if((valueTemp<19 && p.equals("true"))||ot > 25){
+		if(valueTemp<19 && p.equals("true")){
 			//Allumage des chauffages si temperature sous 19 et si quelqu un dans la salle
 			String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 					+ "<cnf>application/xml</cnf>" + "<con>true</con>" + "</m2m:cin>";
 			System.out.println(c.create(url, representation, "admin:admin", type));
-		}else if(valueTemp>20 && p.equals("false")){
+		}else if((valueTemp>20 && p.equals("false"))||ot > 25){
 			//Extinction des chauffages si temperature au-dessus de 20 et personne dans la salle
 			String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 					+ "<cnf>application/xml</cnf>" + "<con>false</con>" + "</m2m:cin>";
@@ -97,11 +99,28 @@ public class TestServlet extends HttpServlet {
 		
 		//GESTION DES FENETRES
 		//Ouverture des fenetres entre 18 et 27 dehors et si dehors plus froid que dedans
-		url = "http://localhost:8080/~/mn-cse/WINDOW_POSITION/DATA";
+		url = "http://localhost:8080/~/mn-cse/mn-name/WINDOW_POSITION/DATA";
 		if(ot<valueTemp && ot>=18 && ot <=27){
 			String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 					+ "<cnf>application/xml</cnf>" + "<con>true</con>" + "</m2m:cin>";
 			System.out.println(c.create(url, representation, "admin:admin", type));
+		}
+		
+		//GESTION DE L'ALARME
+		String time = request.getParameter("time");
+		request.setAttribute("ttime", time);
+		int heure = Integer.parseInt(time.substring(0,2));
+		if((heure<6||heure>=22) && p.equals("false")){
+			request.setAttribute("alert", "true (if change in door position)");	
+		}else{
+			request.setAttribute("alert", "false");
+		}
+		
+		//GESTION DES LUMIERES
+		if(p.equals("false") && (heure<6||heure>=18)){
+			String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
+					+ "<cnf>application/xml</cnf>" + "<con>false</con>" + "</m2m:cin>";
+			c.create("http://localhost:8080/~/mn-cse/mn-name/LUMIERE/DATA", representation, "admin:admin", type);
 		}
 		
 		request.getRequestDispatcher("TemperatureServlet").forward(request, response);

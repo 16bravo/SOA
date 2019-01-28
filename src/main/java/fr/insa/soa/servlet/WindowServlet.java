@@ -47,11 +47,11 @@ public class WindowServlet extends HttpServlet {
 		System.out.println(w);
 
 		Client client = new Client();
-		String url = "http://localhost:8080/~/mn-cse/cnt-683564504"; // DATA_container_for_door
+		String url = "http://localhost:8080/~/mn-cse/mn-name/WINDOW_POSITION/DATA";
 		String type = "4"; // cin
 		String representation = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">"
 				+ "<cnf>application/xml</cnf>" + "<con>" + w + "</con>" + "</m2m:cin>";
-		System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_door_state
+		System.out.println(client.create(url, representation, "admin:admin", type));
 
 		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
 	}
