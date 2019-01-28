@@ -38,7 +38,7 @@ public class DoorServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class DoorServlet extends HttpServlet {
 						+ "<cnf>application/xml</cnf>" + "<con>" + door + "</con>" + "</m2m:cin>";
 				System.out.println(client.create(url, representation, "admin:admin", type)); // new_value_for_light_state
 
-				request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+				request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 }

@@ -28,7 +28,7 @@ public class WindowServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class WindowServlet extends HttpServlet {
 				+ "<cnf>application/xml</cnf>" + "<con>" + w + "</con>" + "</m2m:cin>";
 		System.out.println(client.create(url, representation, "admin:admin", type));
 
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 }

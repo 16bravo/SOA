@@ -13,11 +13,11 @@
 		<div class="col-md-6">
 			<form action="TemperatureServlet" method="POST">
 				Last known Room 1 temperature :
-				<c:out value="${ t.value }" />
-				<!--  </br> <input type="number" step="0.1" name="temperature" value="${ t.value }"> </br> <a href="webapi/temperature">(temperature value JSON)</a>-->
+				<!--<c:out value="${ t.value }" />-->
+				</br> <input type="text" name="temperature" value="${ t.value }"> </br> <a href="webapi/temperature">(temperature value JSON)</a>
 				</br>Last known outside temperature :
-				<c:out value="${ ot.value }" />
-				<!-- </br> <input type="number" step="0.1" name="otemp" value="${ ot.value }"> </br> <a href="webapi/temperature_ext">(temperature value JSON)</a> </br> <input type="submit" value="Submit" /> -->
+				<!-- <c:out value="${ ot.value }" />-->
+				</br> <input type="text" name="otemp" value="${ ot.value }"> </br> <a href="webapi/temperature_ext">(temperature value JSON)</a> </br> <input type="submit" value="Submit" />
 			</form>
 		</div>
 	</div>

@@ -51,109 +51,9 @@ public class TemperatureServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//System.out.println("doGet");
-		Response r = new Response();
-
-		CloseableHttpClient client = HttpClients.createDefault();
 		
-		// Instantiate the correct Http Method
-		HttpGet get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/lumieres");
-		get.addHeader("accept", "application/json");
-		try {
-			// GET LUMIERE
-			// send request
-			CloseableHttpResponse reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			JSONObject json = new JSONObject(r.getRepresentation());
-			Lumieres l = new Lumieres();
-			l.setValue(json.getString("value"));
-			request.setAttribute("l", l);
-
-			// GET TEMPERATURE
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/temperature");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			json = new JSONObject(r.getRepresentation());
-			Temperature t = new Temperature();
-			t.setValue(json.getString("value"));
-			request.setAttribute("t", t);
-			System.out.println(t.getValue());
-			
-			// GET TEMPERATURE EXTERIEURE
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/temperature_ext");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			json = new JSONObject(r.getRepresentation());
-			Temperature ot = new Temperature();
-			ot.setValue(json.getString("value"));
-			request.setAttribute("ot", ot);
-			
-			// GET DOOR POSITION
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/portes");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			json = new JSONObject(r.getRepresentation());
-			DoorPosition d = new DoorPosition();
-			d.setValue(json.getString("value"));
-			request.setAttribute("d", d);
-			
-			// GET WINDOW POSITION
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/fenetres");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			json = new JSONObject(r.getRepresentation());
-			WindowPosition w = new WindowPosition();
-			w.setValue(json.getString("value"));
-			request.setAttribute("w", w);
-			
-			// GET HEATER STATE
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/chauffage");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			json = new JSONObject(r.getRepresentation());
-			HeaterState h = new HeaterState();
-			h.setValue(json.getString("value"));
-			request.setAttribute("h", h);
-			
-			// GET PRESENCE
-			get = new HttpGet("http://localhost:7080/RestProjectSalles/webapi/presence");
-			get.addHeader("accept", "application/json");
-			reqResp = client.execute(get);
-			r.setStatusCode(reqResp.getStatusLine().getStatusCode());
-			r.setRepresentation(IOUtils.toString(reqResp.getEntity().getContent(), "UTF-8"));
-			//System.out.println(r.getRepresentation());
-			json = new JSONObject(r.getRepresentation());
-			Presence p = new Presence();
-			p.setValue(json.getString("value"));
-			request.setAttribute("p", p);
-			
-			//DISPLAY TIME
-			Date date = new Date();
-		    String strDateFormat = "HH:mm";
-		    DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-		    String fd= dateFormat.format(date);
-			request.setAttribute("time", fd);
-
-			this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		request.getRequestDispatcher("MainServlet").forward(request, response);
+		
 	}
 
 	/**
@@ -162,7 +62,7 @@ public class TemperatureServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*//Recuperation form et modification LUMIERES
+		//Recuperation form et modification TEMPERATURES
 		String t = request.getParameter("temperature");
 		String ot = request.getParameter("otemp");
 		Client client = new Client();
@@ -183,7 +83,9 @@ public class TemperatureServlet extends HttpServlet {
 		
 		//this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);*/
 				
-		doGet(request,response);
+		//doGet(request,response);
+		
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 }

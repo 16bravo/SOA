@@ -38,7 +38,7 @@ public class TestServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class TestServlet extends HttpServlet {
 			c.create("http://localhost:8080/~/mn-cse/mn-name/LUMIERE/DATA", representation, "admin:admin", type);
 		}
 		
-		request.getRequestDispatcher("TemperatureServlet").forward(request, response);
+		request.getRequestDispatcher("MainServlet").forward(request, response);
 	}
 
 }
